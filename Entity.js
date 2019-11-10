@@ -2,7 +2,7 @@
 var initPack = {player:[],bullet:[]};
 var removePack = {player:[],bullet:[]};
 
-
+var SOCKET_LIST = {};
 
 Entity = function(param){
 	var self = {
