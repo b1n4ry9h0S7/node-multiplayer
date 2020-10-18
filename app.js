@@ -44,11 +44,23 @@ io.sockets.on('connection', function(socket){
 		delete SOCKET_LIST[socket.id];
 		Player.onDisconnect(socket);
 	});
-
+	//gen random color
+	function getRandomColor() {
+		var letters = '0123456789ABCDEF';
+		var color = '#';
+		for (var i = 0; i < 6; i++) {
+		  color += letters[Math.floor(Math.random() * 16)];
+		}
+		return color;
+	  }
+	  var playerColor = getRandomColor();
 	socket.on('sendMsgToServer',function(data){
-		var playerName = ("" + socket.id).slice(2,7);
+		// var playerName = ("" + socket.id).slice(2,7);
+		var j = 0;
+		
 		for(var i in SOCKET_LIST){
-			SOCKET_LIST[i].emit('addToChat',playerName + ': ' + data);
+			SOCKET_LIST[i].emit('addToChat', '<span style="color:'+ playerColor +'";><b>Player_' + j + '</b></span>: '+ data);
+			j++;
 		}
 	});
 	
