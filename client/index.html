@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>A Scrappy PVP</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <title>Hello World</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
@@ -19,7 +19,7 @@
               Hello World
             </h1>
             <h2 class="subtitle">
-                Some what mmo... I guess
+                First mmo... I guess 
               </h2>
           </div>
         </div>
@@ -28,7 +28,7 @@
             <div class="container">
                 <article class="message">
                     <div class="message-header">
-                      <p>Hello World</p>
+                      <p>Hello World Ver 1.1</p>
                       <button class="delete" aria-label="delete"></button>
                     </div>
                     
@@ -67,7 +67,7 @@
                     <canvas id="ctx-ui" width="500" height="500" style="position:absolute;border:1px solid #000000;"></canvas>
                     
                     <div id="ui" style="position:absolute;width:500px;height:500px;">
-                        <button class="button is-primary" onclick="changeMap()" style="position:absolute;bottom:0px;left:0px">
+                        <button class="button is-primary unselectable" onclick="changeMap()" style="position:absolute;bottom:0px;left:0px">
                             Change Map
                         </button>
                     
@@ -77,8 +77,7 @@
                 
                 <div id="belowGame" style="margin-top:520px">	
                     <div id="chat-text" style="width:500px;height:100px;overflow-y:scroll" required>
-                        <div>Welcome to hello world!</div>
-                        <!-- <hr> -->
+                        <div class="unselectable">Welcome to hello world!</div>
                     </div>
                     <div id="inventory"></div>
                     <form id="chat-form">
@@ -144,7 +143,7 @@
             chatForm.onsubmit = function(e){
                 e.preventDefault();
                 console.log(chatInput.value);
-                if(chatInput.value != null || chatInput.value != '' ){
+                if(chatInput.value){
                 if(chatInput.value[0] === '/')
                     socket.emit('evalServer',chatInput.value.slice(1));
                 else if(chatInput.value[0] === '@'){
