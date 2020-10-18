@@ -60,23 +60,23 @@
           
             </div>
             </div>
-        <div class="container">
-            <div class="container" id="gameDiv" style="display:none;">
-                <div id="game" style="position:absolute;width:500px;height:500px">
+        <div class="container ">
+            <div class="container columns is-gapless" id="gameDiv" style="display:none;">
+                <div id="game" class="column" style="width:500px;height:500px">
                     <canvas id="ctx" width="500" height="500" style="position:absolute;border:1px solid #000000;"></canvas>
                     <canvas id="ctx-ui" width="500" height="500" style="position:absolute;border:1px solid #000000;"></canvas>
                     
                     <div id="ui" style="position:absolute;width:500px;height:500px;">
-                        <button class="button is-primary unselectable" onclick="changeMap()" style="position:absolute;bottom:0px;left:0px">
+                        <button class="button is-primary" onclick="changeMap()" style="position:absolute;bottom:0px;left:0px">
                             Change Map
                         </button>
-                    
+                        
                     </div>
                     
                 </div>
                 
-                <div id="belowGame" style="margin-top:520px">	
-                    <div id="chat-text" style="width:500px;height:100px;overflow-y:scroll" required>
+                <div class="column" id="belowGame" style="position:absolute;margin-left:510px;">	
+                    <div id="chat-text" style="width:500px;height:465px;overflow-y:scroll" required>
                         <div class="unselectable">Welcome to hello world!</div>
                     </div>
                     <div id="inventory"></div>
@@ -98,7 +98,7 @@
             var WIDTH = 500;
             var HEIGHT = 500;
             var socket = io();
-      
+            var username = "";
 
             //sign
             var signDiv = document.getElementById('signDiv');
@@ -109,6 +109,7 @@
             
             signDivSignIn.onclick = function(){
                 socket.emit('signIn',{username:signDivUsername.value,password:signDivPassword.value});
+                
             }
             signDivSignUp.onclick = function(){
                 socket.emit('signUp',{username:signDivUsername.value,password:signDivPassword.value});
@@ -116,7 +117,8 @@
             socket.on('signInResponse',function(data){
                 if(data.success){
                     signDiv.style.display = 'none';
-                    gameDiv.style.display = 'inline-block';
+                    gameDiv.style.display = '';
+                    username = signDivUsername.value;
                 } else
                     alert("Invalid Creds!", );
             });
@@ -131,7 +133,7 @@
             var chatText = document.getElementById('chat-text');
             var chatInput = document.getElementById('chat-input');
             var chatForm = document.getElementById('chat-form');
-            
+         
             socket.on('addToChat',function(data){
                 chatText.innerHTML += '<div>' + data + '</div>';
             });
@@ -142,7 +144,7 @@
             
             chatForm.onsubmit = function(e){
                 e.preventDefault();
-                console.log(chatInput.value);
+                // console.log(chatInput.value);
                 if(chatInput.value){
                 if(chatInput.value[0] === '/')
                     socket.emit('evalServer',chatInput.value.slice(1));
@@ -188,6 +190,7 @@
             
             var Player = function(initPack){
                 var self = {};
+                self.username = username;
                 self.id = initPack.id;
                 self.number = initPack.number;
                 self.x = initPack.x;
